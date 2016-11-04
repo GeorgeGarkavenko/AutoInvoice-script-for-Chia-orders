@@ -35,11 +35,15 @@ def main():
             
             order_title = rs.cell(0, 0).value
             invoice_number = order_title.split()[1]
-            invoice_title = 'Накладная ' + invoice_number
+            invoice_title = \
+                b'\xd0\x9d\xd0\xb0\xd0\xba\xd0\xbb\xd0\xb0\xd0\xb4\xd0\xbd\xd0\xb0\xd1\x8f: '.decode('utf8') \
+                + invoice_number
             ws.write(0, 0, invoice_title, header_format)
             
             total = rs.cell(rs.nrows - 2, rs.ncols - 2).value * 0.8
-            ws.write(rs.nrows, rs.ncols - 3, 'Всего к оплате: ', total_format)
+            ws.write(rs.nrows, rs.ncols - 3, \
+                     b'\xd0\x92\xd1\x81\xd0\xb5\xd0\xb3\xd0\xbe \xd0\xba \xd0\xbe\xd0\xbf\xd0\xbb\xd0\xb0\xd1\x82\xd0\xb5: '.decode('utf8')
+, total_format)
             ws.write(rs.nrows, rs.ncols - 1, total, total_format)
             
             ws.write(rs.nrows - 1, rs.ncols - 1, -20)
